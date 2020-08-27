@@ -35,5 +35,13 @@ router.post("/", async (req,res)=>{
     }
 })
 
+/*we need method="DELETE" but we dont have it
+so we need another lib
+*/ 
+router.delete("/:id",async (req,res)=>{
+    await Article.findByIdAndDelete(req.params.id)
+    res.redirect("/")
+})
+
 
 module.exports = router
