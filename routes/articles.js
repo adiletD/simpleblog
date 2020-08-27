@@ -14,8 +14,8 @@ router.get("/new",(req,res)=>{
 });
 
 
-router.get("/:id", async (req,res)=>{
-    const article = await Article.findById(req.params.id)
+router.get("/:slug", async (req,res)=>{
+    const article = await Article.findOne({slug: req.params.slug})
     if(article==null) res.redirect("/")
     res.render('articles/show',{article: article})
 });
@@ -29,7 +29,7 @@ router.post("/", async (req,res)=>{
     })
     try{
         article = await article.save()   
-        res.redirect(`/articles/${article.id}`) //the ` is important
+        res.redirect(`/articles/${article.slug}`) //the ` is important
     } catch (e){
         res.render('articles/new',{article: article}) //makes the previously entered info stay in case of fail
     }
